@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>Control de productos</title>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+	integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
+	crossorigin="anonymous">
+
+</head>
+<body>
+	<div class="container text-center">
+
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<a class="navbar-brand" href="/">Tienda Spring Boot</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+				<div class="navbar-nav">
+					<a class="nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
+					<a class="nav-link" href="/nuevo">Agregar Producto</a> <a
+						class="nav-link" href="#">Ayuda</a>
+
+				</div>
+			</div>
+		</nav>
+
+		</br> </br>
+
+		<form class="form-inline" th:action="@{/}">
+			<div class="form-group mb-2">
+				<label> Filtrar :</label>
+			</div>
+			<div class="form-group mx-sm-3 mb-2">
+				<input type="text" name="palabraClave" class="form-control" id="palabraClave" th:value="${palabraClave}" placeholder="Digite la palabra a buscar" required/>
+			    
+			</div>
+			<input type="submit" class="btn btn-primary mb-2" value="Buscar"> &nbsp;
+			<input type="button" class="btn btn-secondary mb-2" value="Limpiar" onclick="limpiarCampos()">
+			
+		
+			
+
+		</form>
+	    <br/>	<br/>
+	
+		<table class="table table-dark">
+			<thead>
+				<tr>
+					<th scope="col">ID</th>
+					<th scope="col">Nombre</th>
+					<th scope="col">Marca</th>
+					<th scope="col">Hecho en</th>
+					<th scope="col">Precio</th>
+					<th scope="col">Acciones</th>
+
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="producto : ${listaProductos}">
+
+					<td th:text="${producto.id}"></td>
+					<td th:text="${producto.nombre}"></td>
+					<td th:text="${producto.marca}"></td>
+					<td th:text="${producto.hechoEn}"></td>
+					<td th:text="${producto.precio}"></td>
+					<td><a class="btn btn-primary"
+						th:href="@{'/editar/'+${producto.id}}">Editar</a> &nbsp;
+
+						
+
+
+						
+						<a class="btn btn-danger" th:href="@{'/eliminar/'+${producto.id}}" onClick="return confirm('Esta seguro de borrar el producto?') ? true : false;">Borrar</a>  
+					</td>
+
+				</tr>
+			</tbody>
+
+		</table>
+
+
+
+
+
+
+	</div>
+	<script type="text/javascript">
+		function limpiarCampos(){
+			window.location = "/";
+		}
+	</script>
+
+    <!--  
+    <button type="button" class="btn btn-danger" data-toggle="modal"th:attr="data-target='#recordDeleteModal'+${producto.id}">Borrar</button>
+    -->
+	<!-- Modal -->
+	
+	<!-- 
+	<div class="modal fade"
+		th:attr="'recordDeleteModal'+id=${producto.id}" tabindex="-1"
+		role="dialog" aria-labelledby="recordDeleteModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="recordDeleteModalLabel">Delete
+						Record</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">Esta seguro de borrar el
+					elemento?</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">No</button>
+					<a class="btn btn-primary"
+					   th:href="@{'/eliminar/'+${producto.id}}">Yes</a>
+				</div>
+			</div>
+		</div>
+	</div> 
+	
+	
+	 -->
+	<!-- Modal end -->
+	
+<script
+	src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+	integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+	crossorigin="anonymous"></script>
+</body>
